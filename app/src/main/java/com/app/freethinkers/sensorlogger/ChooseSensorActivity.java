@@ -1,5 +1,7 @@
 package com.app.freethinkers.sensorlogger;
 
+import android.app.LauncherActivity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -25,6 +27,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
 
     private SensorManager mSensorManager;
     private Sensor mLight;
+    private String SensorType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +110,16 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
     // @Override
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-       viewMainActivity();
+        ListView MyElement = (ListView) findViewById(R.id.listView);
+        String MyItem = MyElement.getItemAtPosition(position).toString();
+        SensorType = MyItem;
+        viewMainActivity(SensorType);
     }
 
 
-    public void viewMainActivity() {
+    public void viewMainActivity(String SensorType) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, "Test");
+        intent.putExtra(EXTRA_MESSAGE,SensorType);
         startActivity(intent);
     }
 

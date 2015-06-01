@@ -21,10 +21,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Sensor_Value1"
         android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp" />
+        android:layout_marginTop="101dp"
+        android:layout_below="@+id/textView7"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,10 +32,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Sensor_Value2"
         android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_below="@+id/textView10"
+        android:layout_alignRight="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,10 +42,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Sensor_Value3"
         android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="34dp" />
+        android:layout_below="@+id/textView11"
+        android:layout_alignRight="@+id/textView" />
 
     <ToggleButton
         android:layout_width="wrap_content"
@@ -74,9 +72,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/Sensor_LogInterval"
         android:id="@+id/textView6"
-        android:layout_above="@+id/textView2"
-        android:layout_toRightOf="@+id/textView5"
-        android:layout_toEndOf="@+id/textView5" />
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="34dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -104,9 +103,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/textView9"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,9 +113,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/textView10"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:layout_alignRight="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -124,8 +123,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/textView11"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_alignRight="@+id/textView" />
 
 </RelativeLayout>
