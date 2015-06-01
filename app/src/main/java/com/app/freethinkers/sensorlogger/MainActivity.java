@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +14,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* Get Message from ChooseSensorActivity and Display */
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(ChooseSensorActivity.EXTRA_MESSAGE);
+        if(message != null)
+        {
+            TextView myTextView =(TextView)findViewById(R.id.textView7);
+            myTextView.setText(message);
+        }
     }
 
     @Override

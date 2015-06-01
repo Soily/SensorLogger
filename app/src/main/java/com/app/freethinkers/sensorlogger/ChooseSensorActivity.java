@@ -21,6 +21,8 @@ import java.util.List;
 
 public class ChooseSensorActivity extends AppCompatActivity implements SensorEventListener, AdapterView.OnItemClickListener {
 
+    public final static String EXTRA_MESSAGE = "com.app.freethinkers.MESSAGE";
+
     private SensorManager mSensorManager;
     private Sensor mLight;
 
@@ -111,6 +113,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
 
     public void viewMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, "Test");
         startActivity(intent);
     }
 
