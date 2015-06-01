@@ -1,15 +1,24 @@
 package com.app.freethinkers.sensorlogger;
 
-import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 
 
-public class SettingsLessActivity extends ActionBarActivity {
+public class SettingsLessActivity extends AppCompatActivity {
+
+    enum enLoggingInterval{
+        LogInt_100ms,
+        LogInt_500ms,
+        LogInt_1s,
+        LogInt_5s,
+        LogInt_60s
+    }
+
+    private static enLoggingInterval myLogInterval = enLoggingInterval.LogInt_100ms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +72,23 @@ public class SettingsLessActivity extends ActionBarActivity {
         switch(RadioButton) {
             case R.id.radioButton:
                 // 100 ms
-
+                myLogInterval = enLoggingInterval.LogInt_100ms;
                 break;
             case R.id.radioButton2:
                 // 500 ms
-
+                myLogInterval = enLoggingInterval.LogInt_500ms;
                 break;
             case R.id.radioButton3:
                 // 1 second
-
+                myLogInterval = enLoggingInterval.LogInt_1s;
                 break;
             case R.id.radioButton4:
                 // 5 seconds
-
+                myLogInterval = enLoggingInterval.LogInt_5s;
                 break;
             case R.id.radioButton5:
                 // 1 Minute
-
+                myLogInterval = enLoggingInterval.LogInt_60s;
                 break;
         }
     }
