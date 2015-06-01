@@ -16,11 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
         /* Get Message from ChooseSensorActivity and Display */
         Intent intent = getIntent();
-        String message = intent.getStringExtra(ChooseSensorActivity.EXTRA_MESSAGE);
-        if(message != null)
+        String message_SensorType = intent.getStringExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE);
+        String message_Log_Int = intent.getStringExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT);
+
+        if(message_SensorType != null)
         {
             TextView myTextView =(TextView)findViewById(R.id.textView7);
-            myTextView.setText(message);
+            myTextView.setText(message_SensorType);
+        }
+        if(message_Log_Int != null)
+        {
+            TextView myTextView =(TextView)findViewById(R.id.textView8);
+            myTextView.setText(message_Log_Int);
         }
     }
 
