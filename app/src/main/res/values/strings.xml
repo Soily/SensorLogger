@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SensorLogger</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_Logging_Interval">Log Interval</string>
+    <string name="title_activity_settings_Logging_Interval">Settings Logging Interval</string>
+    <string name="action_settings">Settings</string>
+
+    // Strings for Settings
+    <string name="Settings_100ms">100 ms</string>
+    <string name="Settings_500ms">500 ms</string>
+    <string name="Settings_1s">1 s</string>
+    <string name="Settings_5s">5 s</string>
+    <string name="Settings_60s">1 min</string>
+</resources>
