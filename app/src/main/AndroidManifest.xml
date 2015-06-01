@@ -24,6 +24,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.app.freethinkers.sensorlogger.MainActivity" />
         </activity>
+        <activity
+            android:name=".ChooseSensorActivity"
+            android:label="@string/title_activity_choose_sensor"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.app.freethinkers.sensorlogger.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

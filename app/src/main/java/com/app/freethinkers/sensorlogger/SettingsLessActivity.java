@@ -1,11 +1,16 @@
 package com.app.freethinkers.sensorlogger;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 public class SettingsLessActivity extends AppCompatActivity {
@@ -47,9 +52,12 @@ public class SettingsLessActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void viewMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     public void onRadioButtonsClicked(View v){
-
-
         int RadioButton = v.getId();
 
         RadioButton Button1 = (RadioButton) findViewById(R.id.radioButton);
@@ -91,5 +99,7 @@ public class SettingsLessActivity extends AppCompatActivity {
                 myLogInterval = enLoggingInterval.LogInt_60s;
                 break;
         }
+
+        viewMainActivity();
     }
 }
