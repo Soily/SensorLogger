@@ -40,7 +40,7 @@ public class SettingsLessActivity extends ActionBarActivity {
 
     public void onRadioButtonsClicked(View v){
 
-        // Set all Radio Buttons to false
+
         int RadioButton = v.getId();
 
         RadioButton Button1 = (RadioButton) findViewById(R.id.radioButton);
@@ -49,29 +49,36 @@ public class SettingsLessActivity extends ActionBarActivity {
         RadioButton Button4 = (RadioButton) findViewById(R.id.radioButton4);
         RadioButton Button5 = (RadioButton) findViewById(R.id.radioButton5);
 
+        // Set all Radio Buttons to false
         Button1.setChecked(false);
         Button2.setChecked(false);
         Button3.setChecked(false);
         Button4.setChecked(false);
         Button5.setChecked(false);
 
+        // Set clicked Radio Button to true
         RadioButton myButton = (RadioButton) findViewById(RadioButton);
         myButton.setChecked(true);
 
         switch(RadioButton) {
             case R.id.radioButton:
+                // 100 ms
 
                 break;
             case R.id.radioButton2:
+                // 500 ms
 
                 break;
             case R.id.radioButton3:
+                // 1 second
 
                 break;
             case R.id.radioButton4:
+                // 5 seconds
 
                 break;
             case R.id.radioButton5:
+                // 1 Minute
 
                 break;
         }
