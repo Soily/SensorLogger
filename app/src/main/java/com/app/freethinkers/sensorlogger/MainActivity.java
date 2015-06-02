@@ -101,10 +101,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void StartStopClicked(View view){
-        writeLogToDisc(null);
+        writeLogToDisc("LogFile1.txt", "LogData");
     }
 
-    private void writeLogToDisc(File Filepath){
+    private void writeLogToDisc(String Filename, String LogData){
+        // Create FileOperations Helper Class
         FileOperations myFileOperations = new FileOperations();
         // Write to Disc in case External Storage is available
         if(myFileOperations.isExternalStorageWritable())
@@ -112,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
             //Create File Handle
             File myFileHandle;
             //Create Logging Directory
-            myFileHandle = myFileOperations.getLoggingStorageDir(this,"LogFolder");
-            myFileOperations.saveDateToFile(myFileHandle,"Nutten");
+            myFileHandle = myFileOperations.getLoggingStorageDir(this,Filename);
+            myFileOperations.saveDataToFile(myFileHandle,LogData);
         }
     }
 
