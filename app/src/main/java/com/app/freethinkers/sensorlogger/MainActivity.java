@@ -9,15 +9,42 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final String LOG_INT = "LoggingInterval";
+    static final String SENSOR_TYPE = "SensorType";
+    static String message_SensorType = "";
+    static String message_Log_Int = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String CheckStringNotNull;
+
+        // Check whether we're recreating a previously destroyed instance
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            message_SensorType = savedInstanceState.getString(LOG_INT);
+            message_Log_Int = savedInstanceState.getString(SENSOR_TYPE);
+        } else {
+            // Probably initialize members with default values for a new instance
+        }
+
+
         /* Get Message from ChooseSensorActivity and Display */
         Intent intent = getIntent();
-        String message_SensorType = intent.getStringExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE);
-        String message_Log_Int = intent.getStringExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT);
+        CheckStringNotNull = intent.getStringExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE);
+        if(CheckStringNotNull != null)
+        {
+            message_SensorType = CheckStringNotNull;
+            CheckStringNotNull = null;
+        }
+        CheckStringNotNull = intent.getStringExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT);
+        if(CheckStringNotNull != null)
+        {
+            message_Log_Int = CheckStringNotNull;
+            CheckStringNotNull = null;
+        }
 
         if(message_SensorType != null)
         {
@@ -69,6 +96,16 @@ public class MainActivity extends AppCompatActivity {
     public void viewSensorTypeChooser() {
         Intent intent = new Intent(this, ChooseSensorActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putString(LOG_INT, message_Log_Int);
+        savedInstanceState.putString(SENSOR_TYPE, message_SensorType);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }
