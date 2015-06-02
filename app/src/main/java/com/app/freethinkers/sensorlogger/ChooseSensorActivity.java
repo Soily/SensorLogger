@@ -21,14 +21,14 @@ import android.widget.Toast;
 import java.util.List;
 
 
-public class ChooseSensorActivity extends AppCompatActivity implements SensorEventListener, AdapterView.OnItemClickListener {
+public class ChooseSensorActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     public final static String EXTRA_MESSAGE_SENSOR_TYPE = "com.app.freethinkers.MESSAGE_SENSOR_TYPE";
+    public final static String EXTRA_MESSAGE_SENSOR_TYPE_POS = "com.app.freethinkers.MESSAGE_SENSOR_TYPE_POS";
 
     private SensorManager mSensorManager;
-    private Sensor mSensor;
     private String SensorType;
-    private List<Sensor> deviceSensors;
+    private int SensorTypePos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
         setContentView(R.layout.activity_choose_sensor);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+        List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
         ListView MyElement = (ListView) findViewById(R.id.listView);
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, deviceSensors);
@@ -65,24 +65,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
         return super.onOptionsItemSelected(item);
     }
 
-    // Sensor Event Listener Overrides
-    //
-    //
-    @Override
-    public final void onSensorChanged(SensorEvent event) {
-        // The light sensor returns a single value.
-        // Many sensors return 3 values, one for each axis.
-        float lux = event.values[0];
-        // Do something with this sensor value.
-        //TextView myTextView = (TextView) findViewById(R.id.textView);
-        //myTextView.setText(String.valueOf(lux));
 
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
 
     @Override
     protected void onResume() {
@@ -104,8 +87,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListView MyElement = (ListView) findViewById(R.id.listView);
         String MyItem = MyElement.getItemAtPosition(position).toString();
-        mSensor = deviceSensors.get(position);
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        SensorTypePos = position;
         SensorType = MyItem;
         viewMainActivity(SensorType);
     }
@@ -114,6 +96,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
     public void viewMainActivity(String SensorType) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(EXTRA_MESSAGE_SENSOR_TYPE,SensorType);
+        intent.putExtra(EXTRA_MESSAGE_SENSOR_TYPE_POS,SensorTypePos);
         startActivity(intent);
     }
 

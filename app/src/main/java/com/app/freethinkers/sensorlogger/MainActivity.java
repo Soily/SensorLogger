@@ -1,6 +1,11 @@
 package com.app.freethinkers.sensorlogger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,13 +14,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     static final String LOG_INT = "LoggingInterval";
     static final String SENSOR_TYPE = "SensorType";
+    static final String SENSOR_TYPE_POS = "SensorTypePos";
     static String message_SensorType = "";
     static String message_Log_Int = "";
+    static int message_SensorTypePos = 0;
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
+    private List<Sensor> deviceSensors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
         String CheckStringNotNull;
 
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+
+
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
             // Restore value of members from saved state
             message_SensorType = savedInstanceState.getString(LOG_INT);
             message_Log_Int = savedInstanceState.getString(SENSOR_TYPE);
+            message_SensorTypePos =savedInstanceState.getInt(SENSOR_TYPE_POS);
         } else {
             // Probably initialize members with default values for a new instance
         }
@@ -47,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             message_Log_Int = CheckStringNotNull;
             CheckStringNotNull = null;
         }
+
+        message_SensorTypePos = intent.getIntExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS,0);
+
 
         if(message_SensorType != null)
         {
@@ -101,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void StartStopClicked(View view){
-        FileOperations myFileOperations = new FileOperations();
-        String ts = myFileOperations.getCurrentTimeStamp();
-        writeLogToDisc("LogFile1.txt", ts + ": SensorValue\n" );
+        mSensor = deviceSensors.get(message_SensorTypePos);
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     private void writeLogToDisc(String Filename, String LogData){
@@ -130,4 +149,23 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    // Sensor Event Listener Overrides
+    //
+    //
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        // The light sensor returns a single value.
+        // Many sensors return 3 values, one for each axis.
+        float lux = event.values[0];
+        String SensorValue= String.valueOf(lux);
+        // Do something with this sensor value.
+        FileOperations myFileOperations = new FileOperations();
+        String ts = myFileOperations.getCurrentTimeStamp();
+        writeLogToDisc("LogFile1.txt", ts + ": "+ SensorValue + "\n");
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }
