@@ -26,8 +26,9 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
     public final static String EXTRA_MESSAGE_SENSOR_TYPE = "com.app.freethinkers.MESSAGE_SENSOR_TYPE";
 
     private SensorManager mSensorManager;
-    private Sensor mLight;
+    private Sensor mSensor;
     private String SensorType;
+    private List<Sensor> deviceSensors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +36,12 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
         setContentView(R.layout.activity_choose_sensor);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+        deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+
         ListView MyElement = (ListView) findViewById(R.id.listView);
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, deviceSensors);
         MyElement.setAdapter(adapter);
         MyElement.setOnItemClickListener(this);
-        /*
-        for(int i = 0 ; i < deviceSensors.size();i++) {
-            TextView myTextView = new TextView(getApplicationContext());
-            myTextView.setTextColor(Color.BLACK);
-            myTextView.setText(deviceSensors.get(i).getName());
-            bgElement.addView(myTextView);
-            MyElement.setSelection(i);
-
-        }*/
     }
 
     @Override
@@ -80,7 +72,7 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
     public final void onSensorChanged(SensorEvent event) {
         // The light sensor returns a single value.
         // Many sensors return 3 values, one for each axis.
-        //float lux = event.values[0];
+        float lux = event.values[0];
         // Do something with this sensor value.
         //TextView myTextView = (TextView) findViewById(R.id.textView);
         //myTextView.setText(String.valueOf(lux));
@@ -112,6 +104,8 @@ public class ChooseSensorActivity extends AppCompatActivity implements SensorEve
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListView MyElement = (ListView) findViewById(R.id.listView);
         String MyItem = MyElement.getItemAtPosition(position).toString();
+        mSensor = deviceSensors.get(position);
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         SensorType = MyItem;
         viewMainActivity(SensorType);
     }
