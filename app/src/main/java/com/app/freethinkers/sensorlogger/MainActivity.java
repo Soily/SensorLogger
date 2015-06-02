@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void StartStopClicked(View view){
-        writeLogToDisc("LogFile1.txt", "LogData");
+        FileOperations myFileOperations = new FileOperations();
+        String ts = myFileOperations.getCurrentTimeStamp();
+        writeLogToDisc("LogFile1.txt", ts + ": SensorValue\n" );
     }
 
     private void writeLogToDisc(String Filename, String LogData){

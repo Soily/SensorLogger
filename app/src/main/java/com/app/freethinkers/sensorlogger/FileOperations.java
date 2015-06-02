@@ -7,6 +7,8 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FileOperations {
     private final static String LOG_TAG = "FileOperationsClass";
@@ -46,7 +48,7 @@ public class FileOperations {
     public void saveDataToFile(File MyHandle, String AppendString){
         try {
 
-            FileOutputStream os = new FileOutputStream(MyHandle);
+            FileOutputStream os = new FileOutputStream(MyHandle,true);
             os.write(AppendString.getBytes());
             os.close();
 
@@ -55,5 +57,23 @@ public class FileOperations {
             Log.w("ExternalStorage", "Error writing " + MyHandle, e);
         }
 
+    }
+
+    /**
+     *
+     * @return yyyy-MM-dd HH:mm:ss formate date as string
+     */
+    public String getCurrentTimeStamp(){
+        try {
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTimeStamp = dateFormat.format(new Date()); // Find todays date
+
+            return currentTimeStamp;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
     }
 }
