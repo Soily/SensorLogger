@@ -54,7 +54,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="53dp" />
+        android:layout_marginBottom="53dp"
+        android:onClick="StartStopClicked"/>
 
     <TextView
         android:layout_width="wrap_content"

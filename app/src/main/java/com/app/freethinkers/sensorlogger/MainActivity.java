@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Probably initialize members with default values for a new instance
         }
-
 
         /* Get Message from ChooseSensorActivity and Display */
         Intent intent = getIntent();
@@ -96,6 +98,23 @@ public class MainActivity extends AppCompatActivity {
     public void viewSensorTypeChooser() {
         Intent intent = new Intent(this, ChooseSensorActivity.class);
         startActivity(intent);
+    }
+
+    public void StartStopClicked(View view){
+        writeLogToDisc(null);
+    }
+
+    private void writeLogToDisc(File Filepath){
+        FileOperations myFileOperations = new FileOperations();
+        // Write to Disc in case External Storage is available
+        if(myFileOperations.isExternalStorageWritable())
+        {
+            //Create File Handle
+            File myFileHandle;
+            //Create Logging Directory
+            myFileHandle = myFileOperations.getLoggingStorageDir(this,"LogFolder");
+            myFileOperations.saveDateToFile(myFileHandle,"Nutten");
+        }
     }
 
     @Override
