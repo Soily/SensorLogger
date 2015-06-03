@@ -26,7 +26,7 @@ public class FileOperations {
     public File getLoggingStorageDir(Context context, String LoggingName) {
 
         File path = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS);
+                Environment.DIRECTORY_DOWNLOADS);
 
         // Get the directory for the app's private documents directory.
         File file = new File(path + "/" + LoggingName);
