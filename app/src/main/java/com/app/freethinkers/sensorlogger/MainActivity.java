@@ -23,14 +23,11 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    static final String LOG_INT = "LoggingInterval";
     static final String LOG_INT_MS = "LoggingIntervalInMs";
-    static final String SENSOR_TYPE = "SensorType";
     static final String SENSOR_TYPE_POS = "SensorTypePos";
-    static String message_SensorType = "";
-    static String message_Log_Int = "";
     static int message_SensorTypePos = 0;
     static int message_Log_Int_In_Ms = 0;
+
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private List<Sensor> deviceSensors;
@@ -48,57 +45,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String CheckStringNotNull;
-
-        // Create Timer for use in Activity
-
-
         // Get Sensor Manager and sensor device list
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
 
-
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
             // Restore value of members from saved state
-            message_SensorType = savedInstanceState.getString(LOG_INT);
-            message_Log_Int = savedInstanceState.getString(SENSOR_TYPE);
             message_SensorTypePos =savedInstanceState.getInt(SENSOR_TYPE_POS);
             message_Log_Int_In_Ms = savedInstanceState.getInt(LOG_INT_MS);
         } else {
             // Probably initialize members with default values for a new instance
         }
 
-        /* Get Message from ChooseSensorActivity and Display */
         Intent intent = getIntent();
-        CheckStringNotNull = intent.getStringExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE);
-        if(CheckStringNotNull != null)
-        {
-            message_SensorType = CheckStringNotNull;
-            CheckStringNotNull = null;
-        }
-        CheckStringNotNull = intent.getStringExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT);
-        if(CheckStringNotNull != null)
-        {
-            message_Log_Int = CheckStringNotNull;
-            CheckStringNotNull = null;
-        }
-
         message_SensorTypePos = intent.getIntExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS,0);
         message_Log_Int_In_Ms = intent.getIntExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT_IN_MS,100);
 
-
-        if(message_SensorType != null)
-        {
-            TextView myTextView =(TextView)findViewById(R.id.textView7);
-            myTextView.setText(message_SensorType);
-        }
-        if(message_Log_Int != null)
-        {
-            TextView myTextView =(TextView)findViewById(R.id.textView8);
-            myTextView.setText(message_Log_Int);
-        }
     }
 
     @Override
@@ -194,21 +158,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             File myFileHandle;
             //Create Logging Directory
             myFileHandle = myFileOperations.getLoggingStorageDir(this,Filename);
-            myFileOperations.saveDataToFile(myFileHandle,LogData);
+            myFileOperations.saveDataToFile(myFileHandle, LogData);
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current configuration
-        savedInstanceState.putString(LOG_INT, message_Log_Int);
         savedInstanceState.putInt(LOG_INT_MS, message_Log_Int_In_Ms);
-
-        savedInstanceState.putString(SENSOR_TYPE, message_SensorType);
         savedInstanceState.putInt(SENSOR_TYPE_POS, message_SensorTypePos);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        //Restore values
+        message_Log_Int_In_Ms = savedInstanceState.getInt(LOG_INT_MS);
+        message_SensorTypePos = savedInstanceState.getInt(SENSOR_TYPE_POS);
     }
 
     // Sensor Event Listener Overrides

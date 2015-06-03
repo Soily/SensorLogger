@@ -23,11 +23,9 @@ import java.util.List;
 
 public class ChooseSensorActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    public final static String EXTRA_MESSAGE_SENSOR_TYPE = "com.app.freethinkers.MESSAGE_SENSOR_TYPE";
     public final static String EXTRA_MESSAGE_SENSOR_TYPE_POS = "com.app.freethinkers.MESSAGE_SENSOR_TYPE_POS";
 
     private SensorManager mSensorManager;
-    private String SensorType;
     private int SensorTypePos;
 
     @Override
@@ -88,14 +86,12 @@ public class ChooseSensorActivity extends AppCompatActivity implements AdapterVi
         ListView MyElement = (ListView) findViewById(R.id.listView);
         String MyItem = MyElement.getItemAtPosition(position).toString();
         SensorTypePos = position;
-        SensorType = MyItem;
-        viewMainActivity(SensorType);
+        viewMainActivity(SensorTypePos);
     }
 
 
-    public void viewMainActivity(String SensorType) {
+    public void viewMainActivity(int SensorTypePos) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_MESSAGE_SENSOR_TYPE,SensorType);
         intent.putExtra(EXTRA_MESSAGE_SENSOR_TYPE_POS,SensorTypePos);
         startActivity(intent);
     }

@@ -15,18 +15,8 @@ import android.widget.TextView;
 
 public class SettingsLessActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE_LOG_INT = "com.app.freethinkers.MESSAGE_LOG_INT";
     public final static String EXTRA_MESSAGE_LOG_INT_IN_MS = "com.app.freethinkers.MESSAGE_LOG_INT_IN_MS";
 
-    enum enLoggingInterval{
-        LogInt_100ms,
-        LogInt_500ms,
-        LogInt_1s,
-        LogInt_5s,
-        LogInt_60s
-    }
-
-    private static enLoggingInterval myLogInterval = enLoggingInterval.LogInt_100ms;
     private static int LogIntervalInMs = 0;
 
     @Override
@@ -56,34 +46,9 @@ public class SettingsLessActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void viewMainActivity(enLoggingInterval myLogInterval) {
+    public void viewMainActivity(int myLogIntervalInMs) {
         Intent intent = new Intent(this, MainActivity.class);
-        String LoggingInterval = "";
-        switch(myLogInterval){
-            case LogInt_100ms:
-                LoggingInterval = "100";
-                LogIntervalInMs = 100;
-                break;
-            case LogInt_500ms:
-                LoggingInterval = "500";
-                LogIntervalInMs = 500;
-                break;
-            case LogInt_1s:
-                LoggingInterval = "1000";
-                LogIntervalInMs = 1000;
-                break;
-            case LogInt_5s:
-                LoggingInterval = "5000";
-                LogIntervalInMs = 5000;
-                break;
-            case LogInt_60s:
-                LoggingInterval = "60000";
-                LogIntervalInMs = 60000;
-                break;
-        }
-
-        intent.putExtra(EXTRA_MESSAGE_LOG_INT,LoggingInterval);
-        intent.putExtra(EXTRA_MESSAGE_LOG_INT_IN_MS,LogIntervalInMs);
+        intent.putExtra(EXTRA_MESSAGE_LOG_INT_IN_MS,myLogIntervalInMs);
         startActivity(intent);
     }
 
@@ -110,26 +75,26 @@ public class SettingsLessActivity extends AppCompatActivity {
         switch(RadioButton) {
             case R.id.radioButton:
                 // 100 ms
-                myLogInterval = enLoggingInterval.LogInt_100ms;
+                LogIntervalInMs = 100;
                 break;
             case R.id.radioButton2:
                 // 500 ms
-                myLogInterval = enLoggingInterval.LogInt_500ms;
+                LogIntervalInMs = 500;
                 break;
             case R.id.radioButton3:
                 // 1 second
-                myLogInterval = enLoggingInterval.LogInt_1s;
+                LogIntervalInMs = 1000;
                 break;
             case R.id.radioButton4:
                 // 5 seconds
-                myLogInterval = enLoggingInterval.LogInt_5s;
+                LogIntervalInMs = 5000;
                 break;
             case R.id.radioButton5:
                 // 1 Minute
-                myLogInterval = enLoggingInterval.LogInt_60s;
+                LogIntervalInMs = 60000;
                 break;
         }
 
-        viewMainActivity(myLogInterval);
+        viewMainActivity(LogIntervalInMs);
     }
 }
