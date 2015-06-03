@@ -25,16 +25,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     static final String LOG_INT_MS = "LoggingIntervalInMs";
     static final String SENSOR_TYPE_POS = "SensorTypePos";
+
     static int message_SensorTypePos = 0;
-    static int message_Log_Int_In_Ms = 0;
+    static int message_Log_Int_In_Ms = 1000;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private List<Sensor> deviceSensors;
     private static String mSensorValue1;
 
-    Timer timer;
-    TimerTask timerTask;
+    static Timer timer;
+    static TimerTask timerTask;
 
     //we are going to use a handler to be able to run in our TimerTask
     final Handler handler = new Handler();
@@ -60,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 message_SensorTypePos = intent.getIntExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS, 0);
             }
         }
+
+        // Display Values (SensorType and Log-Interval) in UI
+        // SensorType
+        TextView SensorTypeTextView = (TextView) findViewById(R.id.textView7);
+        SensorTypeTextView.setText(deviceSensors.get(message_SensorTypePos).getName());
+
+        // Log Interval
+        TextView LogTextView = (TextView) findViewById(R.id.textView8);
+        LogTextView.setText(String.valueOf(message_Log_Int_In_Ms));
 
     }
 
@@ -172,6 +182,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
         //Restore values
         message_Log_Int_In_Ms = savedInstanceState.getInt(LOG_INT_MS);
         message_SensorTypePos = savedInstanceState.getInt(SENSOR_TYPE_POS);
@@ -188,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Add Sensor Value 1 to UI
         TextView SensorValue1_View = (TextView) findViewById(R.id.textView11);
         SensorValue1_View.setText(mSensorValue1);
-
     }
 
     @Override
@@ -201,12 +213,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         @Override
         public void run() {
-
-
             runOnUiThread(new Runnable(){
 
                 @Override
                 public void run() {
+
                 }});
         }
 
@@ -215,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             FileOperations myFileOperations = new FileOperations();
             String ts = myFileOperations.getCurrentTimeStamp();
             writeLogToDisc("LogFile1.txt", ts + ": " + mSensorValue1 + "\n");
+
         }
 
     }
