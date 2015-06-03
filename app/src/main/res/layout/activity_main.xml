@@ -130,4 +130,14 @@
         android:layout_below="@+id/textView2"
         android:layout_alignRight="@+id/textView" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/LoggingInterval_ms"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/textView6"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
+
 </RelativeLayout>
