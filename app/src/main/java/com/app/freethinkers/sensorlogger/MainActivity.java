@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.io.File;
 import java.util.List;
@@ -120,8 +121,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void StartStopClicked(View view){
-        mSensor = deviceSensors.get(message_SensorTypePos);
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        ToggleButton myToggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+        if(myToggleButton.isChecked())
+        {
+            mSensor = deviceSensors.get(message_SensorTypePos);
+            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }else
+        {
+            mSensorManager.unregisterListener(this);
+        }
 
     }
 
@@ -144,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Save the user's current game state
         savedInstanceState.putString(LOG_INT, message_Log_Int);
         savedInstanceState.putString(SENSOR_TYPE, message_SensorType);
+        savedInstanceState.putInt(SENSOR_TYPE_POS, message_SensorTypePos);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -154,14 +163,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //
     @Override
     public final void onSensorChanged(SensorEvent event) {
-        // The light sensor returns a single value.
-        // Many sensors return 3 values, one for each axis.
+        // Get Sensor Value 1
         float lux = event.values[0];
-        String SensorValue= String.valueOf(lux);
+        String SensorValue1 = String.valueOf(lux);
+        // Add Sensor Value 1 to UI
+        TextView SensorValue1_View = (TextView) findViewById(R.id.textView11);
+        SensorValue1_View.setText(SensorValue1);
         // Do something with this sensor value.
         FileOperations myFileOperations = new FileOperations();
         String ts = myFileOperations.getCurrentTimeStamp();
-        writeLogToDisc("LogFile1.txt", ts + ": "+ SensorValue + "\n");
+        writeLogToDisc("LogFile1.txt", ts + ": "+ SensorValue1 + "\n");
     }
 
     @Override

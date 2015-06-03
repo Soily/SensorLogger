@@ -38,10 +38,6 @@ public class FileOperations {
                 e.printStackTrace();
             }
         }
-
-        if (!file.mkdirs()) {
-            Log.e(LOG_TAG, "Directory not created");
-        }
         return file;
     }
 
