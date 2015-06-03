@@ -49,19 +49,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
-
-        // Check whether we're recreating a previously destroyed instance
-        if (savedInstanceState != null) {
-            // Restore value of members from saved state
-            message_SensorTypePos =savedInstanceState.getInt(SENSOR_TYPE_POS);
-            message_Log_Int_In_Ms = savedInstanceState.getInt(LOG_INT_MS);
-        } else {
-            // Probably initialize members with default values for a new instance
-        }
-
         Intent intent = getIntent();
-        message_SensorTypePos = intent.getIntExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS,0);
-        message_Log_Int_In_Ms = intent.getIntExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT_IN_MS,100);
+        Bundle extras = intent.getExtras();
+
+        if(extras !=null) {
+            if (extras.containsKey(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT_IN_MS)) {
+                message_Log_Int_In_Ms = intent.getIntExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT_IN_MS, 100);
+            }
+            if (extras.containsKey(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS)) {
+                message_SensorTypePos = intent.getIntExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS, 0);
+            }
+        }
 
     }
 
