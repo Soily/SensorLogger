@@ -16,6 +16,7 @@ import android.widget.TextView;
 public class SettingsLessActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE_LOG_INT = "com.app.freethinkers.MESSAGE_LOG_INT";
+    public final static String EXTRA_MESSAGE_LOG_INT_IN_MS = "com.app.freethinkers.MESSAGE_LOG_INT_IN_MS";
 
     enum enLoggingInterval{
         LogInt_100ms,
@@ -26,6 +27,7 @@ public class SettingsLessActivity extends AppCompatActivity {
     }
 
     private static enLoggingInterval myLogInterval = enLoggingInterval.LogInt_100ms;
+    private static int LogIntervalInMs = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +61,29 @@ public class SettingsLessActivity extends AppCompatActivity {
         String LoggingInterval = "";
         switch(myLogInterval){
             case LogInt_100ms:
-                LoggingInterval = "100 ms";
+                LoggingInterval = "100";
+                LogIntervalInMs = 100;
                 break;
             case LogInt_500ms:
-                LoggingInterval = "500 ms";
+                LoggingInterval = "500";
+                LogIntervalInMs = 500;
                 break;
             case LogInt_1s:
-                LoggingInterval = "1 seconds";
+                LoggingInterval = "1000";
+                LogIntervalInMs = 1000;
                 break;
             case LogInt_5s:
-                LoggingInterval = "5 seconds";
+                LoggingInterval = "5000";
+                LogIntervalInMs = 5000;
                 break;
             case LogInt_60s:
-                LoggingInterval = "1 minute";
+                LoggingInterval = "60000";
+                LogIntervalInMs = 60000;
                 break;
         }
 
         intent.putExtra(EXTRA_MESSAGE_LOG_INT,LoggingInterval);
+        intent.putExtra(EXTRA_MESSAGE_LOG_INT_IN_MS,LogIntervalInMs);
         startActivity(intent);
     }
 
