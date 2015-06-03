@@ -52,8 +52,8 @@
         android:text="New ToggleButton"
         android:id="@+id/toggleButton"
         android:layout_marginBottom="55dp"
-        android:textOn="Start"
-        android:textOff="Stop"
+        android:textOn="Turn Off"
+        android:textOff="Turn On"
         android:onClick="StartStopClicked"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/textView5"
@@ -138,6 +138,7 @@
         android:id="@+id/textView12"
         android:layout_below="@+id/textView6"
         android:layout_alignRight="@+id/textView6"
-        android:layout_alignEnd="@+id/textView6" />
+        android:layout_alignEnd="@+id/textView6"
+        android:textColor="@color/abc_search_url_text_pressed" />
 
 </RelativeLayout>

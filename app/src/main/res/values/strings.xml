@@ -13,7 +13,7 @@
     <string name="Sensor_Value2">Sensor Value 2</string>
     <string name="Sensor_Value3">Sensor Value 3</string>
     <string name="StartStopLog">Start/Stop Logging</string>
-    <string name="LoggingInterval_ms"> in ms</string>
+    <string name="LoggingInterval_ms"> ms</string>
 
     // Strings for Settings
     <string name="Settings_100ms">100 ms</string>
