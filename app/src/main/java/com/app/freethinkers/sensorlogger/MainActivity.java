@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         private void runOnUiThread(Runnable runnable) {
-            // Do something with this sensor value.
+            // Do something with this sensor value. //Add Comment Test
             FileOperations myFileOperations = new FileOperations();
             String ts = myFileOperations.getCurrentTimeStamp();
             writeLogToDisc("LogFile1.txt", ts + ": " + mSensorValue1 + "\n");
