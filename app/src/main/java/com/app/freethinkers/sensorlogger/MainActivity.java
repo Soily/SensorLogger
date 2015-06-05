@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == GET_SENSOR_TYPE) {
-            if(resultCode == RESULT_OK ){
+            if(resultCode == RESULT_OK ){ // Add Test Comment
                 message_SensorTypePos=data.getIntExtra("SensorTypePos_RI", 0);
                 TextView SensorTypeTextView = (TextView) findViewById(R.id.textView7);
                 SensorTypeTextView.setText(deviceSensors.get(message_SensorTypePos).getName());
