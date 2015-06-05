@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     static final String LOG_INT_MS = "LoggingIntervalInMs";
     static final String SENSOR_TYPE_POS = "SensorTypePos";
-
+    static final int GET_SENSOR_TYPE = 1;
     static int message_SensorTypePos = 0;
     static int message_Log_Int_In_Ms = 1000;
 
-    private SensorManager mSensorManager;
-    private Sensor mSensor;
+    private static SensorManager mSensorManager;
+    private static Sensor mSensor;
     private List<Sensor> deviceSensors;
     private static String mSensorValue1;
 
@@ -57,15 +57,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (extras.containsKey(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT_IN_MS)) {
                 message_Log_Int_In_Ms = intent.getIntExtra(SettingsLessActivity.EXTRA_MESSAGE_LOG_INT_IN_MS, 100);
             }
-            if (extras.containsKey(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS)) {
-                message_SensorTypePos = intent.getIntExtra(ChooseSensorActivity.EXTRA_MESSAGE_SENSOR_TYPE_POS, 0);
-            }
         }
 
         // Display Values (SensorType and Log-Interval) in UI
         // SensorType
-        TextView SensorTypeTextView = (TextView) findViewById(R.id.textView7);
-        SensorTypeTextView.setText(deviceSensors.get(message_SensorTypePos).getName());
 
         // Log Interval
         TextView LogTextView = (TextView) findViewById(R.id.textView8);
@@ -118,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void viewSensorTypeChooser() {
         Intent intent = new Intent(this, ChooseSensorActivity.class);
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent, GET_SENSOR_TYPE);
     }
 
     public void StartStopClicked(View view){
@@ -230,5 +226,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
     }
+
+    // Return Intent
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == GET_SENSOR_TYPE) {
+            if(resultCode == RESULT_OK ){
+                message_SensorTypePos=data.getIntExtra("SensorTypePos_RI", 0);
+                TextView SensorTypeTextView = (TextView) findViewById(R.id.textView7);
+                SensorTypeTextView.setText(deviceSensors.get(message_SensorTypePos).getName());
+
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 }
 

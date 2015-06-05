@@ -86,14 +86,19 @@ public class ChooseSensorActivity extends AppCompatActivity implements AdapterVi
         ListView MyElement = (ListView) findViewById(R.id.listView);
         String MyItem = MyElement.getItemAtPosition(position).toString();
         SensorTypePos = position;
-        viewMainActivity(SensorTypePos);
+
+        //Test: ReturnIntent
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("SensorTypePos_RI",SensorTypePos);
+        setResult(RESULT_OK,returnIntent);
+        finish();
     }
 
 
     public void viewMainActivity(int SensorTypePos) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_MESSAGE_SENSOR_TYPE_POS,SensorTypePos);
-        startActivity(intent);
+        //Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra(EXTRA_MESSAGE_SENSOR_TYPE_POS,SensorTypePos);
+
     }
 
 }
