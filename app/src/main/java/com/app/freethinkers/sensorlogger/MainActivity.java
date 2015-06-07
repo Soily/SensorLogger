@@ -106,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             viewSensorTypeChooser();
             return true;
         }
+        if (id == R.id.action_startLogging){
+            startLoggingInMenu();
+            return true;
+        }
 
 
         return super.onOptionsItemSelected(item);
@@ -119,6 +123,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void viewSensorTypeChooser() {
         Intent intent = new Intent(this, ChooseSensorActivity.class);
         startActivity(intent);
+    }
+
+    public void startLoggingInMenu(){
+        startService(new Intent(this,LoggingService.class));
     }
 
     public void StartStopClicked(View view){

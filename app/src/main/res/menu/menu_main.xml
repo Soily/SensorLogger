@@ -5,4 +5,6 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_chooseSensor" android:title="@string/action_Choose_Sensor"
         android:orderInCategory="101" app:showAsAction="never" />
+    <item android:id="@+id/action_startLogging" android:title="@string/action_startLogging"
+        android:orderInCategory="102" app:showAsAction="never" />
 </menu>

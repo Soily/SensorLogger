@@ -5,6 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_Logging_Interval">Log Interval</string>
     <string name="action_Choose_Sensor">Choose Sensor Type</string>
+    <string name="action_startLogging">Start Logging</string>
     <string name="title_activity_settings_Logging_Interval">Settings Logging Interval</string>
     <string name="action_settings">Settings</string>
     <string name="Sensor_Type">Sensor Type</string>
