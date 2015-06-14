@@ -10,19 +10,26 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
 public class SettingsLessActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE_LOG_INT_IN_MS = "com.app.freethinkers.MESSAGE_LOG_INT_IN_MS";
+    static final String SETTINGS_LOG_INT_MS = "SettingsLoggingIntervalPos";
 
     private static int LogIntervalInMs = 0;
+    private static int SettingsLogIntPos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_less);
+
+        // Restore value in radio group (UI)
+        RadioGroup myRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        myRadioGroup.check(SettingsLogIntPos);
     }
 
     @Override
@@ -46,6 +53,24 @@ public class SettingsLessActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current configuration
+        savedInstanceState.putInt(SETTINGS_LOG_INT_MS, SettingsLogIntPos);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //Restore values
+        SettingsLogIntPos = savedInstanceState.getInt(SETTINGS_LOG_INT_MS);
+    }
+
     public void viewMainActivity(int myLogIntervalInMs) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(EXTRA_MESSAGE_LOG_INT_IN_MS,myLogIntervalInMs);
@@ -53,26 +78,15 @@ public class SettingsLessActivity extends AppCompatActivity {
     }
 
     public void onRadioButtonsClicked(View v){
-        int RadioButton = v.getId();
 
-        RadioButton Button1 = (RadioButton) findViewById(R.id.radioButton);
-        RadioButton Button2 = (RadioButton) findViewById(R.id.radioButton2);
-        RadioButton Button3 = (RadioButton) findViewById(R.id.radioButton3);
-        RadioButton Button4 = (RadioButton) findViewById(R.id.radioButton4);
-        RadioButton Button5 = (RadioButton) findViewById(R.id.radioButton5);
+        // Get position in Radio Group
+        RadioGroup myRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        SettingsLogIntPos = myRadioGroup.getCheckedRadioButtonId();
 
-        // Set all Radio Buttons to false
-        Button1.setChecked(false);
-        Button2.setChecked(false);
-        Button3.setChecked(false);
-        Button4.setChecked(false);
-        Button5.setChecked(false);
+        // Get RadioButton
+        RadioButton myRadioButton = (RadioButton) findViewById(SettingsLogIntPos);
 
-        // Set clicked Radio Button to true
-        RadioButton myButton = (RadioButton) findViewById(RadioButton);
-        myButton.setChecked(true);
-
-        switch(RadioButton) {
+        switch(myRadioButton.getId()) {
             case R.id.radioButton:
                 // 100 ms
                 LogIntervalInMs = 100;
@@ -97,4 +111,7 @@ public class SettingsLessActivity extends AppCompatActivity {
 
         viewMainActivity(LogIntervalInMs);
     }
+
+
+
 }
