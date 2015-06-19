@@ -11,16 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FileOperations {
-    private final static String LOG_TAG = "FileOperationsClass";
 
-    static boolean ExternalStorageWritable;
     public boolean isExternalStorageWritable(){
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
-
+        return (Environment.MEDIA_MOUNTED.equals(state));
     }
 
     public File getLoggingStorageDir(Context context, String LoggingName) {

@@ -7,7 +7,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,16 +28,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     static int message_Log_Int_In_Ms = 1000;
 
     private SensorManager mSensorManager;
-    private Sensor mSensor;
     private List<Sensor> deviceSensors;
     private static String mSensorValue1;
 
     static Timer timer;
     static TimerTask timerTask;
-
-    //we are going to use a handler to be able to run in our TimerTask
-    final Handler handler = new Handler();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,8 +119,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(myToggleButton.isChecked())
         {
             // Register Sensor and Listener
-            mSensor = deviceSensors.get(message_SensorTypePos);
-            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            Sensor mySensor;
+            mySensor = deviceSensors.get(message_SensorTypePos);
+            mSensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
 
             // Apply log interval to Timer --> Reschedule!
             //startTimer();
