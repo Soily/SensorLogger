@@ -195,13 +195,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorValues[0] = event.values[0];
         sensorValues[1] = event.values[1];
         sensorValues[2] = event.values[2];
-        sensorValues[3] = event.values[3];
+        //sensorValues[3] = event.values[3];
 
         // Convert to String
         mySensorValuesString[0] = String.valueOf(sensorValues[0]);
         mySensorValuesString[1] = String.valueOf(sensorValues[1]);
         mySensorValuesString[2] = String.valueOf(sensorValues[2]);
-        mySensorValuesString[3] = String.valueOf(sensorValues[3]);
+        //mySensorValuesString[3] = String.valueOf(sensorValues[3]);
 
         // Add Sensor Value 1 to UI
         TextView SensorValue1_View = (TextView) findViewById(R.id.textView11);
@@ -216,8 +216,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SensorValue3_View.setText(mySensorValuesString[2]);
 
         // Add Sensor Value 4 to UI
-        TextView SensorValue4_View = (TextView) findViewById(R.id.textView14);
-        SensorValue4_View.setText(mySensorValuesString[3]);
+        //TextView SensorValue4_View = (TextView) findViewById(R.id.textView14);
+        //SensorValue4_View.setText(mySensorValuesString[3]);
     }
 
     @Override
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             writeLogToDisc("LogFile1.txt", ts + ": " + mySensorValuesString[0] +
                                                 "; " + mySensorValuesString[1] +
                                                 "; " + mySensorValuesString[2] +
-                                                "; " + mySensorValuesString[3] + "\n");
+                                                /*"; " + mySensorValuesString[3] +*/ "\n");
 
         }
 
